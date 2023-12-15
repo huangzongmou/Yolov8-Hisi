@@ -1,10 +1,11 @@
 # Yolov8-Hisi
 
-    yolov8在hisi3536a推理，
+    yolov8在hisi3536a推理，./build.sh 编译即可。
 
 ## yolov8源码需要修改部分
 
 ### DFL模块修改
+
 ```python
 class DFL(nn.Module):
     # Integral module of Distribution Focal Loss (DFL)
@@ -42,11 +43,12 @@ class DFL(nn.Module):
 ```
 
 ### Detect的forward修改为如下：
+
 ```python
 def forward(self, x):
         shape = x[0].shape  # BCHW
 
-        if self.export == True:               
+        if self.export == True:             
             for i in range(self.nl):
                 boxs = self.dfl(self.cv2[i](x[i]))
                 print(boxs.shape)
@@ -79,11 +81,10 @@ def forward(self, x):
 ```
 
 ## 导出模型
+
 ```python
     path = "/home/huangzm/code/mycode/pytorch/ultralytics/runs/detect/GWM/weights/best.pt"
     yolo = YOLO(path)
     success = yolo.export(format="onnx",simplify = True,imgsz=[384,640])
     导出模型后在海思工具上转换om模型即可在本demo代码上使用。
 ```
-
-

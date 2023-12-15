@@ -4,6 +4,7 @@
 
 ## yolov8源码需要修改部分
 
+### DFL模块修改
 ```python
 class DFL(nn.Module):
     # Integral module of Distribution Focal Loss (DFL)
@@ -21,7 +22,7 @@ class DFL(nn.Module):
         # return self.conv(x.view(b, self.c1, 4, a).softmax(1)).view(b, 4, a)
 
 ```
-### DFL模块修改
+
 更换为如下：
 
 ```python
